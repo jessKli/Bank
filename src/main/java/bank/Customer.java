@@ -9,15 +9,15 @@ public class Customer {
 	public String id;
 	public String firstName;
 	public String lastName;
-	public String password;
+	public String passWord;
 	public Customer() {
-		System.out.println("H");
+		
 	}
 	
 	 @Override
 	    public String toString() {
 	        return String.format(
 	                "Customer[id=%s, firstName='%s', lastName='%s',passWord=%s]",
-	                id, firstName, lastName,password);
+	                id, firstName, lastName,passWord);
 	    }
 }
