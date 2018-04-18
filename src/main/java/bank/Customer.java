@@ -1,23 +1,45 @@
 package bank;
 
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Customer {
+public  class Customer {
+	
 	@Id
-	public String id;
-	public String firstName;
-	public String lastName;
-	public String passWord;
+	private String id;
+	private String idNumber;
+	private String firstName;
+	private String lastName;
+	private String passWord;
+	
 	public Customer() {
 		
+	}
+	public Customer(String birthDate,String first, String last, String pwd) {
+		this.idNumber=birthDate;
+		this.firstName=first;
+		this.lastName=last;
+		this.passWord=pwd;
+	}
+	
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setPassWord(String pwd) {
+		passWord=pwd;
 	}
 	
 	 @Override
 	    public String toString() {
 	        return String.format(
-	                "Customer[id=%s, firstName='%s', lastName='%s',passWord=%s]",
-	                id, firstName, lastName,passWord);
+	                "Customer\n[id=%s,idNumber=%s, firstName='%s', lastName='%s',passWord=%s]",
+	                id, idNumber,firstName, lastName,passWord);
 	    }
 }
