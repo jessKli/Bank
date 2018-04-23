@@ -1,25 +1,34 @@
 package bank;
 
-import java.io.Console;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+@EnableMongoRepositories
 @SpringBootApplication
 public class Application implements CommandLineRunner{
 	@Autowired
-	private Repository repository;
+	private CustomerRepository repository;
 
 	public static void main(String []args) {
 
 		SpringApplication.run(Application.class, args);
-
+		
 	}
+	
+	 @Bean
+	    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		 return args -> {
+			 System.out.println("Web application is running");
+		 };
+	    }
+	
 
 	public void run(String... args) throws Exception {
 		//loop through all elements in customer table
@@ -44,7 +53,7 @@ public class Application implements CommandLineRunner{
 		cust.setPassWord("pwdIsChanged");
 		repository.save(cust);		
 		
-		//delete this new customer
+		//delete the new customer
 		repository.deleteById(repository.findByIdNumber(birth).getId());
 		
 		

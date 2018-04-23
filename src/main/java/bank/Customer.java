@@ -1,8 +1,5 @@
 package bank;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -32,9 +29,16 @@ public  class Customer {
 	public String getId() {
 		return id;
 	}
+	public String getFirstName() {
+		return firstName;
+	}
 	public void setPassWord(String pwd) {
 		passWord=pwd;
 	}
+	public String getPassWord() {
+		return passWord;
+	}
+	
 	
 	 @Override
 	    public String toString() {
