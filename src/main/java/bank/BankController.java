@@ -1,7 +1,5 @@
 package bank;
 
-import java.util.Scanner;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,32 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BankController {
 	@Autowired
-	CustomerRepository repository;
+	CustomerService service;
 
 	@RequestMapping ("/")
-	public String index() {
-		
+	public String index() {		
 		return "Welcome to our bank";
 	}
-	
+
 	@RequestMapping ("/CreateNewCustomer")
 	public String createNewCustomer() {
-		Scanner scan=new Scanner(System.in);
-		System.out.print("Ange personnummer: ");
-		String birth=scan.nextLine();
-		if(repository.findByIdNumber(birth)!=null) {
-			System.out.println("User already exist");	
-		}
-		else {
-			System.out.print("Ange förnamn: ");
-			String first=scan.nextLine();
-			System.out.print("Ange efternamn: ");
-			String last=scan.nextLine();
-			System.out.print("Välj lösenord: ");
-			String pwd=scan.nextLine();
-			repository.insert(new Customer(birth,first, last,pwd));
-			System.out.println("User is created");	
-		}
-		return "Create new customer";
+		return service.createNewCustomer();
+	}
+	
+	@RequestMapping ("/GetCustomer")
+	public Customer getCustomer() {
+		return service.getCustomer();
+	}
+	
+	@RequestMapping ("/DeleteCustomer")
+	public void deleteCustomer() {
+		 service.deleteCustomer();
+	}
+	@RequestMapping ("/ChangePwd")
+	public String changePwdForCustomer() {		 
+		 return service.changePwdForCustomer();
 	}
 }

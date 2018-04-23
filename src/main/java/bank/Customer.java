@@ -1,11 +1,13 @@
 package bank;
 
+import java.util.Scanner;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public  class Customer {
-	
 	@Id
 	private String id;
 	private String idNumber;
@@ -43,7 +45,9 @@ public  class Customer {
 	 @Override
 	    public String toString() {
 	        return String.format(
-	                "Customer\n[id=%s,idNumber=%s, firstName='%s', lastName='%s',passWord=%s]",
+	                "Customer:[id=%s,idNumber=%s, firstName='%s', lastName='%s',passWord=%s]\n",
 	                id, idNumber,firstName, lastName,passWord);
 	    }
+	 
+	 
 }
