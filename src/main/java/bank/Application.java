@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,98 +45,119 @@ public class Application implements CommandLineRunner{
 
 	public void run(String... args) throws Exception {
 		boolean exit = false;
+		int input;
+		Customer cust=new Customer();
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Press:\n1 for create new customer\n2 for login");
+		input=scanner.nextInt();
+		if(input==Constants.CREATE_NEW_CUSTOMER) {
+			cust=custService.createNewCustomer();
+		}else if(input==Constants.LOGIN){
+			cust=custService.getCustomerByIdAndPwd();
+		}
+		if(cust==null) {
+			exit=true;
+		}
 		while (!exit) {
 			System.out.println(
 					"How can we help you?\nPress:"
-					+ "\nC for create new customer"
-					+ "\nD for delete customer "
-					+ "\nP for change password"
-					+ "\nR for allcustomers"
-					+ "\nA for delete account"
-					+ "\nB for create account"
-					+ "\nL for adjust account"
-					+ "\nS for all accounts\nE to exit");
-			String input = scanner.nextLine();
-			switch (input.toUpperCase()) {
-			case Constants.CREATE_NEW_CUSTOMER:
-				System.out.println(custService.createNewCustomer());
-				break;
+					+ "\n3 for stop being a client in this bank"
+//					+ "\nP for change password"
+//					+ "\nR for allcustomers"
+//					+ "\nA for delete account"
+//					+ "\nB for create account"
+//					+ "\nL for adjust account"
+//					+ "\nS for all accounts\n
+					+ "\nE to exit");
+			input = scanner.nextInt();
+			switch (input) {
 			case Constants.DELETE_CUSTOMER:
-				System.out.println(custService.deleteCustomer());
-				break;
-			case Constants.CHANGE_PWD:
-				System.out.println("Change pwd");
-				break;
-			case Constants.GET_ALL_CUSTOMERS:
-				custService.getAllCustomers();
-				break;
-			case Constants.GET_ALL_ACCOUNTS:
-				List<Account> allAccounts=accountService.getAllAccounts();
-				for(int i=0;i<allAccounts.size();i++) {
-					System.out.println(allAccounts.get(i).toString());
-				}
-				break;
-			case Constants.DELETE_ACCOUNT:
-				accountService.deleteAccount();
-				break;
-			case Constants.CREATE_ACCOUNT:
-				accountService.createAccount();
-				break;
-			case Constants.ADJUST_ACCOUNT:
-				accountService.adjustTheAmountOfTheAccount();
-				break;
-			case Constants.EXIT:
-				System.out.println("The application will terminate");
+				custService.deleteCustomer(cust);
 				exit=true;
 				break;
-			default:
-				System.out.println("What do you want to do");
-				break;
-			}
-		}
-//		while (!exit) {
-//			if (input.equalsIgnoreCase(Constants.CREATE_NEW_CUSTOMER)) {
-//				System.out.println("Create cust");
-////				custService.createNewCustomer();
-//			}
-//			else if(input.equals(Constants.CHANGE_PWD)) {
+//			case Constants.CHANGE_PWD:
 //				System.out.println("Change pwd");
-//			}
-//			else if(input.equals(Constants.EXIT)) {
-//				System.out.println("Change pwd");
-//				exit=true;
-//			} else {
+//				break;
+//			case Constants.GET_ALL_CUSTOMERS:
+//				custService.getAllCustomers();
+//				break;
+//			case Constants.GET_ALL_ACCOUNTS:
+//				List<Account> allAccounts=accountService.getAllAccounts();
+//				for(int i=0;i<allAccounts.size();i++) {
+//					System.out.println(allAccounts.get(i).toString());
+//				}
+//				break;
+//			case Constants.DELETE_ACCOUNT:
+//				accountService.deleteAccount();
+//				break;
+//			case Constants.CREATE_ACCOUNT:
+//				accountService.createAccount();
+//				break;
+//			case Constants.ADJUST_ACCOUNT:
+//				accountService.adjustTheAmountOfTheAccount();
+//				break;
+//			case Constants.EXIT:
 //				System.out.println("The application will terminate");
-//				exit = true;
+//				exit=true;
+//				break;
+//			default:
+//				System.out.println("What do you want to do");
+//				break;
 //			}
 //		}
-				//loop through all elements in customer table
-//		System.out.println(repository.findAll());
-//		//create new user if idNumber doesnt exist
-//		String birth="1996-03-24-9991";
-//		String first="Rasmus";
-//		String last="Forsten-Klinc";
-//		String pwd="dummyPwd";
-//		boolean createNewUser=true;
-//			if(repository.findByIdNumber(birth)!=null) {
-//				System.out.println("User already exist");
-//				createNewUser=false;
 //		
+			}}
+		
+//		while (!exit) {
+//			System.out.println(
+//					"How can we help you?\nPress:"
+//					+ "\nC for create new customer"
+//					+ "\nD for delete customer "
+//					+ "\nP for change password"
+//					+ "\nR for allcustomers"
+//					+ "\nA for delete account"
+//					+ "\nB for create account"
+//					+ "\nL for adjust account"
+//					+ "\nS for all accounts\nE to exit");
+//			String input = scanner.nextLine();
+//			switch (input.toUpperCase()) {
+//			case Constants.CREATE_NEW_CUSTOMER:
+//				System.out.println(custService.createNewCustomer());
+//				break;
+//			case Constants.DELETE_CUSTOMER:
+//				System.out.println(custService.deleteCustomer());
+//				break;
+//			case Constants.CHANGE_PWD:
+//				System.out.println("Change pwd");
+//				break;
+//			case Constants.GET_ALL_CUSTOMERS:
+//				custService.getAllCustomers();
+//				break;
+//			case Constants.GET_ALL_ACCOUNTS:
+//				List<Account> allAccounts=accountService.getAllAccounts();
+//				for(int i=0;i<allAccounts.size();i++) {
+//					System.out.println(allAccounts.get(i).toString());
+//				}
+//				break;
+//			case Constants.DELETE_ACCOUNT:
+//				accountService.deleteAccount();
+//				break;
+//			case Constants.CREATE_ACCOUNT:
+//				accountService.createAccount();
+//				break;
+//			case Constants.ADJUST_ACCOUNT:
+//				accountService.adjustTheAmountOfTheAccount();
+//				break;
+//			case Constants.EXIT:
+//				System.out.println("The application will terminate");
+//				exit=true;
+//				break;
+//			default:
+//				System.out.println("What do you want to do");
+//				break;
+//			}
 //		}
-//		if(createNewUser) {
-//			repository.insert(new Customer(birth,first, last,pwd));
-//		}
-//		
-//		//change password on the new customer
-//		Customer cust=repository.findByIdNumber(birth);
-//		cust.setPassWord("pwdIsChanged");
-//		repository.save(cust);		
-//		
-//		//delete the new customer
-//		repository.deleteById(repository.findByIdNumber(birth).getId());
-//		
-//		
+		
 	}
 	
 	

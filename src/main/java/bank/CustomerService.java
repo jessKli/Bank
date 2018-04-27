@@ -15,55 +15,48 @@ public class CustomerService {
 	@Autowired
 	AccountService accountService;
 
-	public String createNewCustomer() {
-		String returnString;
+	public Customer createNewCustomer() {
+		Customer cust=new Customer();
 		String[] args = getUserInput(false);
 		if (okToCreateUser(args[0])) {
-			repository.insert(new Customer(args[0], args[1], args[2], args[3]));
-			returnString = "Customer is created";
+			cust=repository.insert(new Customer(args[0], args[1], args[2], args[3]));
+			System.out.println("Customer is created");
 		} else {
-			returnString = "Customer already exist";
+			System.out.println( "Customer already exist");
 		}
-		return returnString;
+		return cust;
 	}
 	
-	public Customer getCustomer() {
-		System.out.print(repository.findAll() + "\n");
-		String[] args = getUserInput(true);
-		return repository.findByIdNumber(args[0]);
+	public Customer getCustomerByIdAndPwd() {
+		String personalId=null;
+		String pwd=null;
+		Scanner scanner= new Scanner(System.in);
+		System.out.println("Please enter your customer id followed by your password:");
+		personalId=scanner.next();
+		pwd=scanner.next();
+		Customer cust=repository.findByIdNumberAndPwd(personalId, pwd);
+		if(cust==null) {
+			System.out.println("No customer with that customer id or password");
+		}
+		return cust;
 	}
 
-	public String deleteCustomer() {
+	public void deleteCustomer(Customer c) {
 		String returnString = null;
-		List<Account> customerAccounts = new ArrayList<>();
-		String[] args = getUserInput(true);
-		// check if customer is a customer in bank
-		Customer cust = repository.findByIdNumber(args[0]);
-		if (cust == null) {
-			returnString = "Customer is not a customer";
-		} else {
-			// get customers accounts in bank
-			customerAccounts = accountService.getAllAccountsForCustomer(args[0]);
+		List<Account> accountList=accountService.getAllAccountsForCustomer(c.getIdNumber());
 			// if customer doesnt have any accounts, ok to delete customer
-			if (customerAccounts.size() == 0) {
-				repository.delete(cust);
-				returnString = "Customer is deleted";
+			if (accountList.size() == 0) {
+				repository.delete(c);
+				System.out.println("Customer is deleted");
 			}
 			// if customer has accounts, customer must active delete them first
 			else {
 				returnString="Customer needs to delete the accounts first";
-				for (Account account : customerAccounts) {
+				for (Account account : accountList) {
 					returnString = returnString + "\n" + account.getAccountName();
 				}
 			}
-		}
-		return returnString;
-//		//first, find all users in db, easier to delete then
-//		System.out.print(repository.findAll() + "\n");
-//		String[] args = getUserInput(true);
-//		repository.delete(repository.findByIdNumber(args[0]));
-//		System.out.print(repository.findAll());
-	}
+		}	
 	
 	public String changePwdForCustomer() {
 		String returnString;
