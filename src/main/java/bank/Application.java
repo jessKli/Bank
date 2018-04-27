@@ -68,7 +68,7 @@ public class Application implements CommandLineRunner{
 //					+ "\nB for create account"
 //					+ "\nL for adjust account"
 //					+ "\nS for all accounts\n
-					+ "\nE to exit");
+					+ "\n9 to exit");
 			input = scanner.nextInt();
 			switch (input) {
 			case Constants.DELETE_CUSTOMER:
@@ -96,13 +96,13 @@ public class Application implements CommandLineRunner{
 //			case Constants.ADJUST_ACCOUNT:
 //				accountService.adjustTheAmountOfTheAccount();
 //				break;
-//			case Constants.EXIT:
-//				System.out.println("The application will terminate");
-//				exit=true;
-//				break;
-//			default:
-//				System.out.println("What do you want to do");
-//				break;
+			case Constants.EXIT:
+				System.out.println("The application will terminate");
+				exit=true;
+				break;
+			default:
+				System.out.println("What do you want to do");
+				break;
 //			}
 //		}
 //		

@@ -1,25 +1,34 @@
 package bank;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+
 public class CustomerService {
 	@Autowired
 	CustomerRepository repository;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
 
 	public Customer createNewCustomer() {
 		Customer cust=new Customer();
+		String hashedPwd=null;
 		String[] args = getUserInput(false);
 		if (okToCreateUser(args[0])) {
-			cust=repository.insert(new Customer(args[0], args[1], args[2], args[3]));
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			hashedPwd=passwordEncoder.encode(args[3]);
+			cust=repository.insert(new Customer(args[0], args[1], args[2], hashedPwd));
 			System.out.println("Customer is created");
 		} else {
 			System.out.println( "Customer already exist");
@@ -34,13 +43,19 @@ public class CustomerService {
 		System.out.println("Please enter your customer id followed by your password:");
 		personalId=scanner.next();
 		pwd=scanner.next();
-		Customer cust=repository.findByIdNumberAndPwd(personalId, pwd);
-		if(cust==null) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Customer cust=repository.findByIdNumber(personalId);
+		if(encoder.matches(pwd, cust.getPassWord())) {
+			return cust;
+		}else {
 			System.out.println("No customer with that customer id or password");
+			return null;
 		}
-		return cust;
 	}
-
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
 	public void deleteCustomer(Customer c) {
 		String returnString = null;
 		List<Account> accountList=accountService.getAllAccountsForCustomer(c.getIdNumber());
@@ -57,6 +72,9 @@ public class CustomerService {
 				}
 			}
 		}	
+	
+	
+
 	
 	public String changePwdForCustomer() {
 		String returnString;
