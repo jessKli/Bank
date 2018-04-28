@@ -1,15 +1,11 @@
 package bank;
 
-import java.util.Scanner;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public  class Customer {
 	@Id
-//	private String id;
 	private String idNumber;
 	private String firstName;
 	private String lastName;
@@ -28,20 +24,18 @@ public  class Customer {
 	public String getIdNumber() {
 		return idNumber;
 	}
-//	public String getId() {
-//		return id;
-//	}
 	public String getFirstName() {
 		return firstName;
 	}
-	public void setPassWord(String pwd) {
-		passWord=pwd;
+	public String getLastName() {
+		return lastName;
 	}
 	public String getPassWord() {
 		return passWord;
 	}
-	
-	
+	public void setPassWord(String pwd) {
+		passWord=pwd;
+	}
 	 @Override
 	    public String toString() {
 	        return String.format(

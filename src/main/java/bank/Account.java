@@ -12,43 +12,30 @@ public class Account {
 	private BigDecimal amount;
 	private String accountName;
 
-
+	public Account() {
+	}
 	public Account(String owner, BigDecimal amount, String accountName) {
 		this.accountOwnerIdNumber=owner;
 		this.amount=amount;
 		this.accountName=accountName;
 		
 	}
-	public Account() {
-		// TODO Auto-generated constructor stub
+	public String getAccountOwnerIdNumber() {
+		return accountOwnerIdNumber;
 	}
 	public String getAccountId() {
 		return id;
 	}
-	public String getAccountOwnerIdNumber() {
-		return accountOwnerIdNumber;
-	}
-	public String toString() {
-        return String.format(
-                "Account:[id=%s,accountOwnerIdNumber=%s, amount='%s', accountName='%s'\n",
-                id, accountOwnerIdNumber,amount, accountName);
-    }
-	
 	public BigDecimal getAmount() {
 		return amount;
 	}
-	
-	public String getAccountName() {
-		return accountName;
-	}
-	
 	public boolean setAmount(TypeOfAccountActivity type, BigDecimal inputAmount) {
 		boolean activityPerformed=false;
 		if(type.name().equals(TypeOfAccountActivity.ADDAMOUNT.name())) {
 			this.amount=this.amount.add(inputAmount);
 			activityPerformed=true;
 		}else {
-			// check if enought amount on account
+			// check if enough amount on account
 			if(this.amount.compareTo(inputAmount)>=0) {
 				this.amount=this.amount.subtract(inputAmount);
 				activityPerformed=true;
@@ -56,4 +43,17 @@ public class Account {
 		}
 		return activityPerformed;
 	}
+	public String getAccountName() {
+		return accountName;
+	}
+	
+	public String toString() {
+        return String.format(
+                "Account:[id=%s,accountOwnerIdNumber=%s, amount='%s', accountName='%s'\n",
+                id, accountOwnerIdNumber,amount, accountName);
+    }
+	
+	
+	
+
 }
