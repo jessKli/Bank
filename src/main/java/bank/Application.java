@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @EnableMongoRepositories
@@ -27,12 +29,12 @@ public class Application implements CommandLineRunner{
 	}
 
 	// run the application from localhost
-	// @Bean
-	// public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-	// return args -> {
-	// System.out.println("The bank is open");
-	// };
-	// }
+	 @Bean
+	 public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+	 return args -> {
+	 System.out.println("The bank is open");
+	 };
+	 }
 	
 
 	public void run(String... args) throws Exception {
