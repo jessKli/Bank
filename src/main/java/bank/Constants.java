@@ -6,7 +6,7 @@ public final  class Constants {
 	 final static String CHANGE_PWD="P";
 	 final static int EXIT=9;
 	 final static int DELETE_CUSTOMER=3;
-	 final static String GET_ALL_CUSTOMERS="R";
+	 final static int GET_ALL_CUSTOMERS=8;
 	 final static String GET_ALL_ACCOUNTS="S";
 	 final static int DELETE_ACCOUNT=5;
 	 final static int CREATE_ACCOUNT=4;

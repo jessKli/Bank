@@ -114,12 +114,5 @@ public final class AccountService {
 			}
 		}
 	}
-		
-//		if(List<Transaction> custTransactions=tranRepository.findById(cust.getIdNumber())){
-//			
-//		}
-//		for(int i=0;i<custTransactions.s) {
-//			System.out.println(tran.toString());
-//		}
-//	}
+
 }

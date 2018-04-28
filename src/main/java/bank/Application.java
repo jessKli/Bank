@@ -56,7 +56,6 @@ public class Application implements CommandLineRunner{
 					+ "\n3 for stop being a client in this bank"
 					+ "\n4 for create account"
 //					+ "\nP for change password"
-//					+ "\nR for allcustomers"
 					+ "\n5 for delete account"
 					+ "\n6 for adjust account"
 					+ "\n7 for all my transactions"

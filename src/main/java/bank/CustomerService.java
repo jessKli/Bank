@@ -1,6 +1,7 @@
 package bank;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,6 +33,7 @@ public class CustomerService {
 			System.out.println("Customer is created");
 		} else {
 			System.out.println( "Customer already exist");
+			cust=null;
 		}
 		return cust;
 	}
@@ -44,7 +46,15 @@ public class CustomerService {
 		personalId = scanner.next();
 		pwd = scanner.next();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Customer cust = repository.findByIdNumber(personalId);
+		Customer cust=null;
+//		= repository.findByIdNumber(personalId);
+		Optional<Customer> c=repository.findById(personalId);
+		if(c.isPresent()) {
+			System.out.println("IS PRESENT");
+			cust=c.get();
+		}else {
+			System.out.println("NOT PRESENT");
+		}
 		if (cust != null) {
 			if (encoder.matches(pwd, cust.getPassWord())) {
 			} else {
@@ -86,8 +96,10 @@ public class CustomerService {
 		String returnString;
 		System.out.print(repository.findAll() + "\n");
 		String[] args = getUserInput(true);
-		Customer cust=repository.findByIdNumber(args[0]);
-		if (cust!=null) {
+		Optional<Customer> custCont=repository.findById(args[0]);
+		Customer cust=null;
+		if (custCont.isPresent()) {
+			cust=custCont.get();
 			Random rand=new Random();
 			String newPwd=cust.getPassWord()+rand.nextInt();
 			cust.setPassWord(newPwd);
@@ -122,7 +134,7 @@ public class CustomerService {
 
 	private boolean okToCreateUser(String birth) {
 		boolean createNewUser = true;
-		if (repository.findByIdNumber(birth) != null) {
+		if (repository.findById(birth).isPresent()) {
 			createNewUser = false;
 		}
 		return createNewUser;
