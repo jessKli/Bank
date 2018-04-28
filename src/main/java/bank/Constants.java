@@ -8,8 +8,9 @@ public final  class Constants {
 	 final static int DELETE_CUSTOMER=3;
 	 final static String GET_ALL_CUSTOMERS="R";
 	 final static String GET_ALL_ACCOUNTS="S";
-	 final static String DELETE_ACCOUNT="A";
-	 final static String CREATE_ACCOUNT="B";
-	 final static String ADJUST_ACCOUNT="L";
+	 final static int DELETE_ACCOUNT=5;
+	 final static int CREATE_ACCOUNT=4;
+	 final static int ADJUST_ACCOUNT=6;
+	 final static int MY_TRANSACTIONS=7;
 	
 }

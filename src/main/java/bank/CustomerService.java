@@ -37,40 +37,46 @@ public class CustomerService {
 	}
 	
 	public Customer getCustomerByIdAndPwd() {
-		String personalId=null;
-		String pwd=null;
-		Scanner scanner= new Scanner(System.in);
+		String personalId = null;
+		String pwd = null;
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter your customer id followed by your password:");
-		personalId=scanner.next();
-		pwd=scanner.next();
+		personalId = scanner.next();
+		pwd = scanner.next();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Customer cust=repository.findByIdNumber(personalId);
-		if(encoder.matches(pwd, cust.getPassWord())) {
-			return cust;
-		}else {
-			System.out.println("No customer with that customer id or password");
-			return null;
+		Customer cust = repository.findByIdNumber(personalId);
+		if (cust != null) {
+			if (encoder.matches(pwd, cust.getPassWord())) {
+			} else {
+				System.out.println("Incorrect password");
+				cust = null;
+			}
+		} else {
+			System.out.println("No customer with that customerid");
 		}
+		return cust;
 	}
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	public void deleteCustomer(Customer c) {
-		String returnString = null;
+	public boolean deleteCustomer(Customer c) {
+		boolean customerIsDeleted=false;
 		List<Account> accountList=accountService.getAllAccountsForCustomer(c.getIdNumber());
 			// if customer doesnt have any accounts, ok to delete customer
 			if (accountList.size() == 0) {
 				repository.delete(c);
-				System.out.println("Customer is deleted");
+				customerIsDeleted=true;
+				System.out.println("Customer is deleted");				
 			}
 			// if customer has accounts, customer must active delete them first
 			else {
-				returnString="Customer needs to delete the accounts first";
+				System.out.println("Customer needs to delete the accounts first");
 				for (Account account : accountList) {
-					returnString = returnString + "\n" + account.getAccountName();
+					System.out.println(account.getAccountName());
 				}
 			}
+			return customerIsDeleted;
 		}	
 	
 	

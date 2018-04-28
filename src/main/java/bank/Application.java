@@ -1,26 +1,18 @@
 package bank;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.test.context.ContextConfiguration;
 
 @EnableMongoRepositories
 @SpringBootApplication
 public class Application implements CommandLineRunner{
-	@Autowired
-	private CustomerRepository repository;
+
 	@Autowired
 	private CustomerService custService;
 	@Autowired
@@ -62,51 +54,43 @@ public class Application implements CommandLineRunner{
 			System.out.println(
 					"How can we help you?\nPress:"
 					+ "\n3 for stop being a client in this bank"
+					+ "\n4 for create account"
 //					+ "\nP for change password"
 //					+ "\nR for allcustomers"
-//					+ "\nA for delete account"
-//					+ "\nB for create account"
-//					+ "\nL for adjust account"
-//					+ "\nS for all accounts\n
+					+ "\n5 for delete account"
+					+ "\n6 for adjust account"
+					+ "\n7 for all my transactions"
 					+ "\n9 to exit");
 			input = scanner.nextInt();
 			switch (input) {
 			case Constants.DELETE_CUSTOMER:
-				custService.deleteCustomer(cust);
-				exit=true;
+				if(custService.deleteCustomer(cust)) {
+					exit=true;
+				}
 				break;
-//			case Constants.CHANGE_PWD:
-//				System.out.println("Change pwd");
-//				break;
-//			case Constants.GET_ALL_CUSTOMERS:
-//				custService.getAllCustomers();
-//				break;
-//			case Constants.GET_ALL_ACCOUNTS:
-//				List<Account> allAccounts=accountService.getAllAccounts();
-//				for(int i=0;i<allAccounts.size();i++) {
-//					System.out.println(allAccounts.get(i).toString());
-//				}
-//				break;
-//			case Constants.DELETE_ACCOUNT:
-//				accountService.deleteAccount();
-//				break;
-//			case Constants.CREATE_ACCOUNT:
-//				accountService.createAccount();
-//				break;
-//			case Constants.ADJUST_ACCOUNT:
-//				accountService.adjustTheAmountOfTheAccount();
-//				break;
+			case Constants.DELETE_ACCOUNT:
+				accountService.deleteAccount(cust);
+				break;
+			case Constants.CREATE_ACCOUNT:
+				accountService.createAccount(cust);
+				break;
+			case Constants.ADJUST_ACCOUNT:
+				accountService.adjustTheAmountOfTheAccount(cust);
+				break;
+			case Constants.MY_TRANSACTIONS:
+				accountService.printCustomerTransactions(cust);
+				break;
 			case Constants.EXIT:
 				System.out.println("The application will terminate");
-				exit=true;
+				exit = true;
 				break;
 			default:
 				System.out.println("What do you want to do");
 				break;
-//			}
-//		}
-//		
-			}}
+			}
+		}
+	}	
+			
 		
 //		while (!exit) {
 //			System.out.println(
@@ -158,7 +142,7 @@ public class Application implements CommandLineRunner{
 //			}
 //		}
 		
-	}
+//	}
 	
 	
 }

@@ -29,7 +29,7 @@ public class Transaction {
 	public String toString() {
         return String.format(
                 "Transaction:[id=%s,ownerId=%s,date=%s,accountId=%s,type=%s, amount='%s'\n",
-                id, ownerId,date, accountId,type,amount);
+                id,ownerId,date, accountId,type,amount);
     }
 	
 }	

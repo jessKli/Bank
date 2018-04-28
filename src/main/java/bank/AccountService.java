@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,12 @@ public final class AccountService {
 	@Autowired
 	TransactionRepository tranRepository;
 	//create new account
-	public void createAccount() {
+	public void createAccount(Customer c) {
 		BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
-		System.out.print("Ange ditt id:");
-		String birth;
 		try {
-			birth = read.readLine();
-			System.out.print("Ange namn på konto:");			
-			String aName=read.readLine();
+			String birth = c.getIdNumber();
+			System.out.println("Ange namn på konto:");			
+			String aName=read.toString();
 			aName = read.readLine();
 			repository.insert(new Account(birth, new BigDecimal(0),aName));
 			
@@ -41,12 +40,11 @@ public final class AccountService {
 	public List<Account> getAllAccounts() {
 		return(repository.findAll());
 	}
-	public void deleteAccount() {
+	public void deleteAccount(Customer c) {
 		System.out.println("Name of the account that should be deleted:");
 		Scanner scanner=new Scanner(System.in);
 		String accountName=scanner.nextLine();
-		System.out.println("Your birthid:");
-		String birth=scanner.nextLine();
+		String birth=c.getIdNumber();
 		Account account=repository.findByNameAndOwnerid(accountName, birth);
 		if(account!=null) {
 		repository.delete(account);
@@ -57,33 +55,71 @@ public final class AccountService {
 		}
 
 	}
-	public void adjustTheAmountOfTheAccount() {
-		System.out.println("Your birthid");
-		BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
-		try {
-			String birth=read.readLine();
-			System.out.println("Name of account");
-			String name=read.readLine();
-			Account account=repository.findByNameAndOwnerid(name, birth);
-			if(account!=null) {
-				System.out.println("Amount");
-				String amount=read.readLine();
-				TypeOfAccountActivity type=amount.substring(0, 1).equals("+")?TypeOfAccountActivity.ADDAMOUNT:TypeOfAccountActivity.WITHDRAW;
-				System.out.println(type+" "+amount.substring(1));
-				BigDecimal amountBD=new BigDecimal(amount.substring(1));
-				if(account.setAmount(type,amountBD)) {
-					repository.save(account);
-					tranRepository.insert(new Transaction(birth, new Date(), account.getAccountId(), type, amountBD));
-					System.out.println(tranRepository.findAll());
-				}else {
-					System.out.println("Not enough money on the account");}
-			}else {
-				System.out.println("Cant fint account");
+
+	public void adjustTheAmountOfTheAccount(Customer cust) {
+		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+		List<Account> accountList = repository.findByOwnerIdNumber(cust.getIdNumber());
+		Account account = null;
+		if (accountList.size() == 0) {
+			System.out.println("You dont have an account, please create one");
+		} else if (accountList.size() == 1) {
+			account = accountList.get(0);
+		} else {
+
+			System.out.println("Which of following accounts is the ONE:");
+			for (Account a : accountList) {
+				System.out.println(a.getAccountName());
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			System.out.println("Name of account");
+			String name = null;
+			try {
+				name = read.readLine();
+			} catch (IOException e) {
+				System.out.println(e.toString());
+			}
+
+			account = repository.findByNameAndOwnerid(name, cust.getIdNumber());
+
 		}
-		
+		//start the transaction
+		if (account != null) {
+			System.out.println("Amount");
+			String amount = null;
+			try {
+				amount = read.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			TypeOfAccountActivity type = amount.substring(0, 1).equals("+") ? TypeOfAccountActivity.ADDAMOUNT
+					: TypeOfAccountActivity.WITHDRAW;
+			BigDecimal amountBD = new BigDecimal(amount.substring(1));
+			if (account.setAmount(type, amountBD)) {
+				repository.save(account);
+				tranRepository.insert(
+						new Transaction(cust.getIdNumber(), new Date(), account.getAccountId(), type, amountBD));
+			} else {
+				System.out.println("Not enough money on the account");
+			}
+		}
 	}
+
+	public void printCustomerTransactions(Customer cust) {
+		List<Transaction> transList = tranRepository.findByOwnerIdNumber(cust.getIdNumber());
+		if (transList.size() == 0) {
+			System.out.println("You dont have any transactions yet");
+		} else {
+			for (Transaction tran : transList) {
+				System.out.println(tran.toString());
+			}
+		}
+	}
+		
+//		if(List<Transaction> custTransactions=tranRepository.findById(cust.getIdNumber())){
+//			
+//		}
+//		for(int i=0;i<custTransactions.s) {
+//			System.out.println(tran.toString());
+//		}
+//	}
 }
