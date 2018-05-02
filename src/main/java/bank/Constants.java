@@ -1,8 +1,8 @@
 package bank;
 
 public final  class Constants {
-	 final static int CREATE_NEW_CUSTOMER=1;
-	 final static int LOGIN=2;
+	 public final static int CREATE_NEW_CUSTOMER=1;
+	 public final static int LOGIN=2;
 	 final static String CHANGE_PWD="P";
 	 final static int EXIT=9;
 	 final static int DELETE_CUSTOMER=3;
