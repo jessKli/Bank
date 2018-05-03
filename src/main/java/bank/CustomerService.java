@@ -21,7 +21,7 @@ public class CustomerService {
 	PasswordEncoder passwordEncoder;
 
 
-	public Customer createNewCustomer() {
+	protected Customer createNewCustomer() {
 		Customer cust=new Customer();
 		String hashedPwd=null;
 		String[] args = getUserInput(false);
@@ -37,7 +37,7 @@ public class CustomerService {
 		return cust;
 	}
 	
-	public Customer getCustomerByIdAndPwd() {
+	protected Customer getCustomerByIdAndPwd() {
 		String personalId = null;
 		String pwd = null;
 		Scanner scanner = new Scanner(System.in);
@@ -66,10 +66,10 @@ public class CustomerService {
 		return cust;
 	}
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	protected PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	public boolean deleteCustomer(Customer c) {
+	protected boolean deleteCustomer(Customer c) {
 		boolean customerIsDeleted=false;
 		List<Account> accountList=accountService.getAllAccountsForCustomer(c.getIdNumber());
 			// if customer doesnt have any accounts, ok to delete customer
@@ -91,7 +91,7 @@ public class CustomerService {
 	
 
 	
-	public String changePwdForCustomer() {
+	protected String changePwdForCustomer() {
 		String returnString;
 		System.out.print(repository.findAll() + "\n");
 		String[] args = getUserInput(true);
@@ -111,7 +111,7 @@ public class CustomerService {
 		return returnString;
 	}
 	
-	public void getAllCustomers() {
+	protected void getAllCustomers() {
 		System.out.println(repository.findAll());
 	}
 

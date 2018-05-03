@@ -18,7 +18,7 @@ public final class AccountService {
 	@Autowired
 	TransactionRepository tranRepository;
 	//create new account
-	public void createAccount(Customer c) {
+	protected void createAccount(Customer c) {
 		BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
 		try {
 			String birth = c.getIdNumber();
@@ -33,14 +33,14 @@ public final class AccountService {
 		
 	}
 	
-	public List<Account> getAllAccountsForCustomer(String birth) {
+	protected List<Account> getAllAccountsForCustomer(String birth) {
 		return(repository.findByOwnerIdNumber(birth));
 	}
 	
-	public List<Account> getAllAccounts() {
+	protected List<Account> getAllAccounts() {
 		return(repository.findAll());
 	}
-	public void deleteAccount(Customer c) {
+	protected void deleteAccount(Customer c) {
 		System.out.println("Name of the account that should be deleted:");
 		Scanner scanner=new Scanner(System.in);
 		String accountName=scanner.nextLine();
@@ -56,7 +56,7 @@ public final class AccountService {
 
 	}
 
-	public void adjustTheAmountOfTheAccount(Customer cust) {
+	protected void adjustTheAmountOfTheAccount(Customer cust) {
 		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 		List<Account> accountList = repository.findByOwnerIdNumber(cust.getIdNumber());
 		Account account = null;
@@ -104,7 +104,7 @@ public final class AccountService {
 		}
 	}
 
-	public void printCustomerTransactions(Customer cust) {
+	protected void printCustomerTransactions(Customer cust) {
 		List<Transaction> transList = tranRepository.findByOwnerIdNumber(cust.getIdNumber());
 		if (transList.size() == 0) {
 			System.out.println("You dont have any transactions yet");
