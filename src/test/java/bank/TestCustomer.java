@@ -18,6 +18,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import se.klinc.bank.dao.Customer;
+import se.klinc.bank.dao.CustomerRepository;
+import se.klinc.bank.service.CustomerService;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 //@RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,28 +54,28 @@ public class TestCustomer {
 		 assertTrue(cust.toString().contains("Rasmus"));
 	}
 	
-	//test BankController
-	@Test
-	public void webAppForVerifyStartPoint() throws Exception{
-		 mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
-         .andExpect(status().isOk())
-         .andExpect(content().string(equalTo("Welcome to our bank")));
-	}
-	//test CustomerRepository
-	//test findByIdNumber returns false if user doesnt exist
-	@Test
-	public void verifyFindByNumberIfUserDoesntExist() {
-		Random rand=new Random();
-		String searchBirth="test"+rand;
-		Boolean userExist=false;
-		//loop through all customers in db
-		for(Customer cust:repository.findAll()) {
-			if(cust.getIdNumber().equals(searchBirth)) {
-				userExist=true;
-				break;
-			}
-		}
-		assertTrue(!userExist);
-	}
+//	//test BankController
+//	@Test
+//	public void webAppForVerifyStartPoint() throws Exception{
+//		 mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+//         .andExpect(status().isOk())
+//         .andExpect(content().string(equalTo("Welcome to our bank")));
+//	}
+//	//test CustomerRepository
+//	//test findByIdNumber returns false if user doesnt exist
+//	@Test
+//	public void verifyFindByNumberIfUserDoesntExist() {
+//		Random rand=new Random();
+//		String searchBirth="test"+rand;
+//		Boolean userExist=false;
+//		//loop through all customers in db
+//		for(Customer cust:repository.findAll()) {
+//			if(cust.getIdNumber().equals(searchBirth)) {
+//				userExist=true;
+//				break;
+//			}
+//		}
+//		assertTrue(!userExist);
+//	}
 	
 }

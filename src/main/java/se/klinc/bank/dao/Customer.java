@@ -1,4 +1,4 @@
-package bank;
+package se.klinc.bank.dao;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

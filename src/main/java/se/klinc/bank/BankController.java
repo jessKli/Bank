@@ -1,8 +1,11 @@
-package bank;
+package se.klinc.bank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import se.klinc.bank.service.AccountService;
+import se.klinc.bank.service.CustomerService;
 
 
 //meaning it’s ready for use by Spring MVC to handle web requests
@@ -32,10 +35,10 @@ public class BankController {
 //	public void deleteCustomer() {
 //		custService.deleteCustomer();
 //	}
-	@RequestMapping ("/ChangePwd")
-	public String changePwdForCustomer() {		 
-		 return custService.changePwdForCustomer();
-	}
+//	@RequestMapping ("/ChangePwd")
+//	public String changePwdForCustomer() {		 
+//		 return custService.changePwdForCustomer();
+//	}
 	
 //	@RequestMapping ("/CreateAccount")
 //	public String createAccount() {	
@@ -53,12 +56,12 @@ public class BankController {
 //		return returnMessage;
 //	}
 	
-	private void getAllCustomers() {
-		System.out.println("All customers in the bank");
-		custService.getAllCustomers();
-	}
-	private void getAllAccountsForCustomer(String birth) {
-		System.out.println("All accounts in the bank");
-		accountService.getAllAccountsForCustomer(birth);
-	}
+//	private void getAllCustomers() {
+//		System.out.println("All customers in the bank");
+//		custService.getAllCustomers();
+//	}
+//	private void getAllAccountsForCustomer(String birth) {
+//		System.out.println("All accounts in the bank");
+//		accountService.getAllAccountsForCustomer(birth);
+//	}
 }

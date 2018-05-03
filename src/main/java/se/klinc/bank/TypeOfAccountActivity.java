@@ -1,4 +1,4 @@
-package bank;
+package se.klinc.bank;
 
 public enum TypeOfAccountActivity {
 	ADDAMOUNT,

@@ -1,4 +1,4 @@
-package bank;
+package se.klinc.bank;
 
 public final  class Constants {
 	 public final static int CREATE_NEW_CUSTOMER=1;

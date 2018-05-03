@@ -1,4 +1,4 @@
-package bank;
+package se.klinc.bank.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,11 +6,17 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import se.klinc.bank.TypeOfAccountActivity;
+import se.klinc.bank.dao.Account;
+import se.klinc.bank.dao.AccountRepository;
+import se.klinc.bank.dao.Customer;
+import se.klinc.bank.dao.Transaction;
+import se.klinc.bank.dao.TransactionRepository;
 @Service
 public final class AccountService {
 	@Autowired

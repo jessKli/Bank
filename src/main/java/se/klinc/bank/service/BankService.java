@@ -1,11 +1,14 @@
-package bank;
+package se.klinc.bank.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import se.klinc.bank.dao.Customer;
 @SpringBootApplication
 public class BankService implements CommandLineRunner{
 
@@ -15,9 +18,10 @@ public class BankService implements CommandLineRunner{
 	@Autowired
 	private AccountService accountService;
 
-//	public static void main(String []args) {
+
+	public static void main(String []args) {
 ////		boolean showMenu=true;
-//		ConfigurableApplicationContext  ctx=SpringApplication.run(Application.class, args);
+//		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
 ////		System.out.println("Do you want to see the menu?");
 ////		Scanner scanner = new Scanner(System.in);
 ////		if(scanner.nextLine().equals("false")) {
@@ -29,7 +33,7 @@ public class BankService implements CommandLineRunner{
 //		ctx.close();
 		
 		
-//	}
+	}
 
 
 
@@ -39,6 +43,8 @@ public class BankService implements CommandLineRunner{
 		return args -> {
 			System.out.println("The bank is open");
 		};
+	}
+	public void run(String... args) throws Exception {
 	}
 	public static void getExitMsg() {
 		System.out.println("The application will terminate");
@@ -65,6 +71,5 @@ public class BankService implements CommandLineRunner{
 		accountService.printCustomerTransactions(c);;
 	}
 
-	public void run(String... args) throws Exception {
-	}
+	
 }

@@ -1,9 +1,11 @@
-package bank;
+package se.klinc.bank.dao;
 
 import java.math.BigDecimal;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import se.klinc.bank.TypeOfAccountActivity;
 @Document
 public class Account {
 	@Id

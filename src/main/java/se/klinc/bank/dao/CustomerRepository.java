@@ -1,10 +1,11 @@
-package bank;
+package se.klinc.bank.dao;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Configuration
 public interface CustomerRepository extends MongoRepository<Customer, String>{
 //	@Query("{ 'idNumber' : ?0 }")
 //	Customer findByIdNumber(String birth);
