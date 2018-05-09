@@ -2,23 +2,23 @@ package se.klinc.bank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.klinc.bank.service.AccountService;
-import se.klinc.bank.service.CustomerService;
+import se.klinc.bank.service.BankService;
 
 
 //meaning it’s ready for use by Spring MVC to handle web requests
 @RestController
 public class BankController {
+	
 	@Autowired
-	CustomerService custService;
-	@Autowired
-	AccountService accountService;
+	BankService bankservice;
 
-	@RequestMapping ("/CreateNewCustomer")
-	public String index() {		
-		return "Welcome to our bank";
+	@RequestMapping ("/GetUserByUserIdAndPwd")
+	public String index(@RequestParam(value="name", defaultValue="DummyName") String name, @RequestParam(value="pwd", defaultValue="DummyPwd") String pwd) {
+		
+		return bankservice.getGetCustomerByIdAndPwd(name, pwd);
 	}
 
 //	@RequestMapping ("/CreateNewCustomer")

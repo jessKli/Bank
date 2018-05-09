@@ -71,6 +71,34 @@ public class CustomerService {
 		}
 		return cust;
 	}
+	protected String getCustomerByIdAndPwd(String name, String password) {
+		String personalId = name;
+		String pwd = password;
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Customer cust=null;
+		Optional<Customer> c=repository.findById(personalId);
+		if(c.isPresent()) {
+			System.out.println("IS PRESENT");
+			cust=c.get();
+		}else {
+			System.out.println("NOT PRESENT");
+		}
+		if (cust != null) {
+			if (encoder.matches(pwd, cust.getPassWord())) {
+			} else {
+				System.out.println("Incorrect password");
+				cust = null;
+			}
+		} else {
+			System.out.println("No customer with that customerid");
+		}
+		return (cust!=null) ? cust.toString() : "Not an existing user";
+//		if(cust!=null) {
+//		return cust.toString();
+//		}else {
+//			return "Not an existing user";
+//		}
+	}
 	@Bean
 	protected PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();

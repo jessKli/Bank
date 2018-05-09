@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import se.klinc.bank.dao.Customer;
+@ComponentScan(basePackages = { "se.klinc.bank.service","se.klinc.bank"})
 @SpringBootApplication
 public class BankService implements CommandLineRunner{
-
-
 	@Autowired
 	private CustomerService custService;
 	@Autowired
@@ -22,7 +22,7 @@ public class BankService implements CommandLineRunner{
 	public static void main(String []args) {
 ////		boolean showMenu=true;
 //		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
-////		System.out.println("Do you want to see the menu?");
+//		System.out.println("Do you want to see the menu?");
 ////		Scanner scanner = new Scanner(System.in);
 ////		if(scanner.nextLine().equals("false")) {
 ////			showMenu=false;
@@ -52,6 +52,9 @@ public class BankService implements CommandLineRunner{
 	public Customer getCreateNewCustomer() {
 		return custService.createNewCustomer();
 	}
+	public String getGetCustomerByIdAndPwd(String name, String pwd) {
+		return custService.getCustomerByIdAndPwd(name, pwd);
+	}
 	public Customer getGetCustomerByIdAndPwd() {
 		return custService.getCustomerByIdAndPwd();
 	}
@@ -70,6 +73,7 @@ public class BankService implements CommandLineRunner{
 	public void getPrintCustomerTransactions(Customer c) {
 		accountService.printCustomerTransactions(c);;
 	}
+	
 
 	
 }
