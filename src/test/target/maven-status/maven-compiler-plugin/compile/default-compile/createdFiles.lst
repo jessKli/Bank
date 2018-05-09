@@ -1,0 +1,12 @@
+se\klinc\bank\dao\Account.class
+se\klinc\bank\dao\CustomerRepository.class
+se\klinc\bank\TypeOfAccountActivity.class
+se\klinc\bank\BankController.class
+se\klinc\bank\service\CustomerService.class
+se\klinc\bank\dao\AccountRepository.class
+se\klinc\bank\dao\Transaction.class
+se\klinc\bank\dao\TransactionRepository.class
+se\klinc\bank\dao\Customer.class
+se\klinc\bank\service\AccountService.class
+se\klinc\bank\Constants.class
+se\klinc\bank\service\BankService.class

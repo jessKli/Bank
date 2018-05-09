@@ -3,6 +3,7 @@ package se.klinc.bank.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -21,7 +22,7 @@ public class BankService implements CommandLineRunner{
 
 	public static void main(String []args) {
 ////		boolean showMenu=true;
-//		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
+		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
 //		System.out.println("Do you want to see the menu?");
 ////		Scanner scanner = new Scanner(System.in);
 ////		if(scanner.nextLine().equals("false")) {
