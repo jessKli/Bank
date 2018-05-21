@@ -1,6 +1,7 @@
 package se.klinc.bank.dao;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -8,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import se.klinc.bank.TypeOfAccountActivity;
 @Document
-public class Transaction {
+public  class Transaction{
 	@Id
 	private String id;
 	private String ownerId;
@@ -27,11 +28,24 @@ public class Transaction {
 		this.type=type;
 		this.amount=amount;
 	}
-	
+	public String getAccountId() {
+		return accountId;
+	}
+	public String getDateAsString() {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		String dateString=sdf.format(date);
+		return dateString;
+	}
 	public String toString() {
-        return String.format(
-                "Transaction:[id=%s,ownerId=%s,date=%s,accountId=%s,type=%s, amount='%s'\n",
-                id,ownerId,date, accountId,type,amount);
+		   return String.format(
+				   "Date: "+getDateAsString()+",type=%s, amount='%s'\n",
+//	                "date=%s,type=%s, amount='%s'\n",
+	                type,amount);
+//        return String.format(
+//                "Transaction:[id=%s,ownerId=%s,date=%s,accountId=%s,type=%s, amount='%s'\n",
+//                id,ownerId,date, accountId,type,amount);
     }
+	
+	
 	
 }	

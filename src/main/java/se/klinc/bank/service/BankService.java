@@ -20,21 +20,21 @@ public class BankService implements CommandLineRunner{
 	private AccountService accountService;
 
 
-	public static void main(String []args) {
-////		boolean showMenu=true;
-		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
-//		System.out.println("Do you want to see the menu?");
-////		Scanner scanner = new Scanner(System.in);
-////		if(scanner.nextLine().equals("false")) {
-////			showMenu=false;
-////		}
-////		if(showMenu) {
-////			showMenuOptions();
-////		}
-//		ctx.close();
-		
-		
-	}
+//	public static void main(String []args) {
+//////		boolean showMenu=true;
+//		ConfigurableApplicationContext  ctx=SpringApplication.run(BankService.class, args);
+////		System.out.println("Do you want to see the menu?");
+//////		Scanner scanner = new Scanner(System.in);
+//////		if(scanner.nextLine().equals("false")) {
+//////			showMenu=false;
+//////		}
+//////		if(showMenu) {
+//////			showMenuOptions();
+//////		}
+////		ctx.close();
+//		
+//		
+//	}
 
 
 
@@ -63,16 +63,16 @@ public class BankService implements CommandLineRunner{
 		return custService.deleteCustomer(c);
 	}
 	public void getDeleteAccount(Customer c) {
-		accountService.createAccount(c);
+		accountService.deleteAccount(c);
 	}
 	public void getCreateAccount(Customer c) {
-		accountService.deleteAccount(c);;
+		accountService.createAccount(c);;
 	}
 	public void getAdjustTheAmountOfTheAccount(Customer c) {
 		accountService.adjustTheAmountOfTheAccount(c);
 	}
 	public void getPrintCustomerTransactions(Customer c) {
-		accountService.printCustomerTransactions(c);;
+		accountService.printCustomerTransactions(c);
 	}
 	
 

@@ -13,4 +13,7 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 	@Query("{'accountName' :?#{[0]}}? {'accountOwnerIdNumber' :? #{[1]}}")
 	Account findByNameAndOwnerid(String accountName, String birth);
 	
+	@Query("{ 'id' : ?0 }")
+	Account findByAccountId(String accountId);
+	
 }

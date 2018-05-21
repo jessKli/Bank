@@ -4,10 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import org.hamcrest.number.OrderingComparison;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -111,13 +122,47 @@ public final class AccountService {
 	}
 
 	protected void printCustomerTransactions(Customer cust) {
+		
 		List<Transaction> transList = tranRepository.findByOwnerIdNumber(cust.getIdNumber());
 		if (transList.size() == 0) {
 			System.out.println("You dont have any transactions yet");
 		} else {
-			for (Transaction tran : transList) {
-				System.out.println(tran.toString());
+			Map<String, List<Transaction>> tranMap=new HashMap<>();
+			for (Transaction tran:transList) {
+				if(tranMap.containsKey(repository.findByAccountId(tran.getAccountId()).getAccountName())) {
+					List<Transaction> tmpList=tranMap.get(repository.findByAccountId(tran.getAccountId()).getAccountName());
+					tmpList.add(tran);
+					
+				}else {
+					List<Transaction> tranList=new ArrayList<>();
+					tranList.add(tran);
+					tranMap.put(repository.findByAccountId(tran.getAccountId()).getAccountName(), tranList);
+				}
 			}
+			
+			for (Entry<String, List<Transaction>> entry:tranMap.entrySet()) {
+			Collections.sort(entry.getValue(), new Comparator<Transaction>() {
+		
+				@Override
+				public int compare(Transaction o1, Transaction o2) {
+					// TODO Auto-generated method stub
+					return -1;
+				}
+				});
+			}
+			
+			for (Entry<String, List<Transaction>> entry:tranMap.entrySet()) {
+				System.out.println("Account: "+entry.getKey()+" ");
+				for(Transaction tran:entry.getValue()) {
+				System.out.print(tran.toString());
+				}
+			}
+			
+//			for (Transaction tran : transList) {
+//				System.out.print("Account: "+repository.findByAccountId(tran.getAccountId()).getAccountName()+" ");
+//				
+//				System.out.println(tran.toString());
+//			}
 		}
 	}
 
