@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Configuration
-public interface CustomerRepository extends MongoRepository<Customer, String>{
+public interface CustomerRepository extends MongoRepository<Customer, String> {
 //	@Query("{ 'idNumber' : ?0 }")
 //	Customer findByIdNumber(String birth);
 //	
